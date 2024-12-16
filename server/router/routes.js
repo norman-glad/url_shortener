@@ -3,19 +3,30 @@ const router = express.Router();
 const Url = require('../model/url');
 const shortid = require('shortid');
 
+router.get('/getall', async (req, res) => {
+    const url = await Url.find();
+    res.status(200).json(url);
+
+})
+
 router.post('/shorten', async (req, res) => {
-    const { longUrl } = req.body;
+    try {
+        const { originalUrl } = req.body;
 
-    const urlCode = shortid.generate();
-    const shortUrl = `<span class="math-inline">\{process.env.BASE_URL}/${urlCode}\</span>`;
-    const url = new Url({
-        longUrl,
-        shortUrl,
-        urlCode
-    });
+        const urlCode = shortid.generate();
+        const shortUrl = `${process.env.BASE_URL}/${urlCode}`
+        const url = new Url({
+            originalUrl,
+            shortUrl,
+            urlCode
+        });
+        await url.save();
+        res.status(200).json(url);
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ error: '500 server error' });
+    }
 
-    await url.save();
-    res.json(url);
 });
 
 router.get('/:shortUrlCode', async (req, res) => {
@@ -26,7 +37,7 @@ router.get('/:shortUrlCode', async (req, res) => {
     if (url) {
         url.clicks++;
         await url.save();
-        return res.redirect(url.longUrl);
+        return res.redirect(url.originalUrl);
     } else {
         return res.status(404).json('URL not found');
     }

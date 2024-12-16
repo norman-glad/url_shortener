@@ -23,6 +23,7 @@ app.use(express.json())
 app.use('/api/url',router)
 
 // Connection
+// const PORT = process.env.PORT || 5556;
 app.listen(process.env.PORT, ()=>{
     console.log('App running in port: '+process.env.PORT)
 })
