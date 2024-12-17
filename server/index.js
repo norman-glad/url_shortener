@@ -18,12 +18,10 @@ mongoose.connect(process.env.URL, {
 app.use(cors())
 app.use(express.json())
 
-
 // Routes
 app.use('/api/url',router)
 
 // Connection
-// const PORT = process.env.PORT || 5556;
 app.listen(process.env.PORT, ()=>{
     console.log('App running in port: '+process.env.PORT)
 })
