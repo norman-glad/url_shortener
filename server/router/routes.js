@@ -14,7 +14,7 @@ router.post('/shorten', async (req, res) => {
         const { originalUrl } = req.body;
 
         const urlCode = shortid.generate();
-        const shortUrl = `${process.env.BASE_URL}/${urlCode}`
+        const shortUrl = `${urlCode}`
         const url = new Url({
             originalUrl,
             shortUrl,
@@ -32,7 +32,7 @@ router.post('/shorten', async (req, res) => {
 router.get('/:shortUrlCode', async (req, res) => {
     const shortUrlCode = req.params.shortUrlCode;
 
-    const url = await Url.findOne({ urlCode: shortUrlCode });
+    const url = await Url.findOne({ shortUrl: shortUrlCode });
 
     if (url) {
         url.clicks++;
