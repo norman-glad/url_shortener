@@ -26,7 +26,6 @@ router.post('/shorten', async (req, res) => {
         console.error(err);
         res.status(500).json({ error: '500 server error' });
     }
-
 });
 
 router.get('/:shortUrlCode', async (req, res) => {
@@ -42,5 +41,42 @@ router.get('/:shortUrlCode', async (req, res) => {
         return res.status(404).json('URL not found');
     }
 });
+router.put('/:shortUrl', async (req, res) => {
+    try {
+        const { shortUrl } = req.params;
+        const { originalUrl } = req.body;
+
+        const updatedUrl = await Url.findOneAndUpdate(
+            { shortUrl },
+            { originalUrl },
+            { new: true }
+        );
+
+        if (!updatedUrl) {
+            return res.status(404).json({ error: 'URL not found' });
+        }
+
+        res.json(updatedUrl);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+router.delete('/:shortUrl', async (req, res) => {
+    try {
+        const { shortUrl } = req.params;
+
+        const deletedUrl = await Url.findOneAndDelete({ shortUrl });
+
+        if (!deletedUrl) {
+            return res.status(404).json({ error: 'URL not found' });
+        }
+
+        res.json({ message: 'URL deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
 
 module.exports = router;
