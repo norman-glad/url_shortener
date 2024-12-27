@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 function Item({ url, onDelete }) {
@@ -8,7 +10,7 @@ function Item({ url, onDelete }) {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`${import.meta.env.BASE_URL}/api/update/${url.shortUrl}`, { originalUrl: editedUrl });
+            await axios.put(`${process.env.BASE_URL}/api/update/${url.shortUrl}`, { originalUrl: editedUrl });
             setIsEditing(false);
         } catch (error) {
             console.error('Error updating URL:', error);
