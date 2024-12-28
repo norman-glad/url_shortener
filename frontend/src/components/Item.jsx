@@ -7,7 +7,7 @@ function Item({ url, onDelete }) {
 
     const handleUpdate = async () => {
         try {
-            await axios.put(`${import.meta.env.BASE_URL}/api/update/${url.shortUrl}`, { originalUrl: editedUrl });
+            await axios.put(`${import.meta.env.VITE_BASE_APP}/api/update/${url.shortUrl}`, { originalUrl: editedUrl });
             setIsEditing(false);
         } catch (error) {
             console.error('Error updating URL:', error);

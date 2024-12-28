@@ -11,7 +11,7 @@ function List() {
     }, []);
     const fetchUrls = async () => {
         try {
-            const response = await axios.get(`${import.meta.env.BASE_URL}/api/url/getall`);
+            const response = await axios.get(`${import.meta.env.VITE_BASE_APP}/api/url/getall`);
             setUrls(response.data);
         } catch (error) {
             console.error('Error fetching URLs:', error);
@@ -19,7 +19,7 @@ function List() {
     };
     const handleDelete = async (shortUrl) => {
         try {
-            await axios.delete(`${import.meta.env.BASE_URL}/api/url/${shortUrl}`);
+            await axios.delete(`${import.meta.env.VITE_BASE_APP}/api/url/${shortUrl}`);
             fetchUrls();
         } catch (error) {
             console.error('Error deleting URL:', error);
