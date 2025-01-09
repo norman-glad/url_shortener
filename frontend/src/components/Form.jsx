@@ -7,7 +7,7 @@ function Form() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(`${import.meta.env.VITE_BASE_APP}/api/shorten`, { originalUrl });
+            const response = await axios.post(`${import.meta.env.VITE_APP}/api/url/shorten`, { originalUrl });
             alert(`Shortened URL: ${response.data.shortUrl}`);
             setOriginalUrl('');
         } catch (error) {
