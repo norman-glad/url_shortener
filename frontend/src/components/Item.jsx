@@ -31,7 +31,7 @@ function Item({ url, onDelete }) {
                 <>
                     <p>Original: <a href={url.originalUrl} target="_blank" rel="noopener noreferrer">{url.originalUrl}</a></p>
                     <p>{/* Short: {import.meta.env.VITE_APP}/api/url/{url.shortUrl} */}
-                    <a href={`${import.meta.env.VITE_APP}/api/url/${url.shortUrl}`} target="_blank" rel="noopener noreferrer">Short: {url.shortUrl}</a>
+                    Short:<a href={`${import.meta.env.VITE_APP}/api/url/${url.shortUrl}`} target="_blank" rel="noopener noreferrer"> {url.shortUrl}</a>
                     </p>
                     <p>Clicks: {url.clicks}</p>
                     <button onClick={() => setIsEditing(true)}>Edit</button>
